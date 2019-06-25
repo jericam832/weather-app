@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans|Questrial&display=swap');
+
+html {
+  font-family: 'Questrial', sans-serif;
+}
+
+body {
+  height: 100vh;
+  justify-content: center;
+  flex-direction: column;
+  background-repeat: repeat;
+  background-position: center;
+  background-size: auto;
+  color: #444;
+  background: #2980B9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.wrapper {
+  width: 740px;
+  margin: 20px auto 20px auto;
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.14), 
+            0 10px 10px -2px rgba(0,0,0,0.2), 
+            0 10px 50px 0 rgba(0,0,0,0.12);
+}
+header {
+  color: #fff;
+  display: block;
+}
+.brand {
+  padding-top: 40px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: 'Black Han Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 42px;
+  color: #fff;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+
+/* .title {
+  color: #444;
+  position: relative;
+} */
+
+#city-info {
+  /* padding: 0px 0px 0px 10px; */
+  font-family: 'Questrial', sans-serif;
+  font-weight: bold;
+  text-align: left;
+}
+
+p,
+#temp-high,
+#temp-low,
+#humidity {
+  font-size: 1em;
+}
+
+#city-name,
+#state-name,
+#country-name {
+  font-size: 36px;
+  font-weight: 400;
+}
+#state-name,
+#country-name {
+  padding-left: 10px;
+}
+
+#temp {
+  /* padding: 0px 0px 0px 10px; */
+  font-size: 3.5em;
+  font-weight: 400;
+  color: rgb(50, 130, 184);
+}
+#temperature-info {
+  margin-bottom: 25px;
+}
+
+ul {
+  padding-inline-start: 0px;
+}
+
+#icon {
+  vertical-align: top;
+  width: 125px;
+}
+
+#summary {
+  float: left;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+#feels-temp {
+  font-size: 18px;
+  /* color: rgb(245,81,69); */
+}
+
+#content {
+  height: 100%;
+  padding: 20px;
+}
+/* #results {
+  width: 70%;
+  padding: 0px 0px 50px 80px;
+} */
+#right-column {
+  /* border-left: 2px solid #444; */
+  margin-left: 175px;
+  margin-top: 25px;
+  font-size: 1.15em;
+  line-height: 1.45em;
+  color: rgb(50, 130, 184);
+}
+#footer-list {
+  padding-left: 15px;
+ }
+
+/* #details {
+  margin-top: 10px;
+} */
+
+#search-btn {
+  width: 10px;
+  height: 10px;
+  margin-left: -35px;
+  color: #444;
+}
+
+#location {
+  position: absolute;
+  float: left;
+  background-color: whitesmoke;
+  border: none;
+  color: #333;
+  font-size: 14px;
+  padding: 10px 10px;
+}
+#search-txt {
+  width: 98%;
+  outline: none;
+  border-top: none;
+  border-bottom: 1px solid #555;
+  padding: 8px 8px 8px 42px;
+  font-size: 18px;
+  background-color: whitesmoke;  
+  color: #444;
+}
+
+h4 {
+  margin-top: 0;
+}
+.search {
+  cursor: pointer;
+  position: relative;
+  left: 50%;
+  -webkit-transform:translate(-50%,-50%);
+          transform:translate(-50%,-50%);
+          padding: 15px 0px 5px 0px;
+}
+
+footer {
+  width: 100%;
+  color: #444444;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+footer a {
+ 
+  text-decoration: none;
+  color: #444444;
+}
+.btn-group {
+  margin: 0px 50px 0px 0px;
+  
+}
+
+.btn-group button {
+  background-color: #e2e2e2;
+  border: 1px solid rgb(175, 172, 172);
+  color: #777;
+  font-weight: 600;
+  padding: 5px 10px;
+  cursor: pointer;
+  float: right;
+}
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-left: none; 
+}
+
+.btn-group button:hover {
+  background-color: #edf3f3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}

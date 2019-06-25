@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather JS App</title>
+  <link rel="stylesheet" href="style.css"> 
+  <script src="https://kit.fontawesome.com/32f91cdc61.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="brand">Real-Time Weather</h1>
+  </header>
+  <div class="wrapper">
+    <div class="container">
+      <div id="content">
+        <div class="title">
+          <h4>Enter a city to find the weather and plan your day:</h4>
+          <!-- weather icons here -->
+          <div class="search">
+            <button id="location" type="submit" onclick="getLocation()"><i class="fas fa-location-arrow"></i></button>
+            <input type="text" id="search-txt" placeholder="ie. Seattle, Miami, Houston, TX..." required autocomplete="off" autofocus>
+            <a id="search-btn" href="#"><i class="fas fa-search"></i></a>
+            <br>
+            <small><strong>Note:</strong> Please include the state to specify the city (ex. Dallas, TX).</small>
+             <!-- <p id="message"></p> -->
+          </div>
+        </div>
+        <div class="row" id="results"> 
+          <div class="column" id="left-column">
+          </div>
+          <div class="column" id="right-column">
+            <div class="btn-group">
+            <button id="celcius" onclick="changeTemp()">°C</button>
+            <button id="fahrenheit" onclick="changeTemp()">°F</button>
+          </div>
+          </div>
+        </div><!-- #results -->
+      </div> <!-- #content -->
+    </div><!-- .container -->
+  </div><!-- .wrapper -->
+  
+ <footer>
+    &copy; 2019 Designed by <a href="http://www.jericamitchell.com">Jerica Mitchell</a>
+  </footer>
+
+  <script  src="app.js"></script>
+
+</body>
+
+</html>
