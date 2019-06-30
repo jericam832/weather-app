@@ -2,9 +2,12 @@ const weatherAppKey = "1632f3982b6b4ebabca619e2503320d3";
 let searchButton = document.getElementById("search-btn");
 let searchInput = document.getElementById("search-txt");
 
+//hide results div on initial load
+let hideResults = document.getElementById("results"); 
+
 //Event listeners
-searchButton.addEventListener("click", findWeatherDetails);
-searchInput.addEventListener("keyup", enterPressed);
+searchButton.addEventListener("click", getCurrentWeather);
+searchInput.addEventListener("keyup", enterKey);
 
 //Create elements on search event
 let ul = document.createElement("ul");
@@ -57,8 +60,8 @@ iconSpan.appendChild(icon);
 let temperature = document.createElement("span");
 temperature.setAttribute('id', 'temp');
 //display items in h1 of second li tag
-tInfo.appendChild(temperature);
 tInfo.appendChild(iconSpan);
+tInfo.appendChild(temperature);
 
 //second ul tag
 let footerUl = document.createElement('ul');
@@ -108,9 +111,8 @@ let savedDewPt = localStorage.getItem('dewPoint');
 let savedWindSp = localStorage.getItem('windSpeed');
 let savedVis = localStorage.getItem('visibility');
 let savedWindDir = localStorage.getItem('windDirection');
-
-// 
-if (savedCity !="null") {
+//check if city data is in local storage on page load/refresh
+if ("searchInput" in localStorage) {
   cityName.innerHTML = savedCity;
   temperature.innerHTML = savedTemp;
   humidity.innerHTML = savedHumidity;
@@ -118,75 +120,79 @@ if (savedCity !="null") {
   summary.innerHTML =  savedSummary;
   stateName.innerHTML =  savedState;
   country.innerHTML =  savedCountry;
-  // date.innerHTML =  new Date();
   icon.src =  savedIcon;
   dewPoint.innerHTML =  savedDewPt;
   visibility.innerHTML =  savedVis;
   windDirection.innerHTML =  savedWindDir;
   windSpeed.innerHTML =  savedWindSp;
-} else {
-  //add hidden class
-  let hidden = document.getElementById('results');
-  hidden.style.display = 'none';
-}
+  hideResults.classList.remove("hidden");
+  hideResults.classList.add("row");
+} else {   
+   // add hidden class
+    hideResults.classList.remove("row");
+    hideResults.classList.add("hidden");
+  }
 
-function enterPressed(event) {
+function enterKey(event) {
   if (event.key === "Enter") {
-    findWeatherDetails();
+    getCurrentWeather();
     //clear input field after submitting
     searchInput.value = "";
-    //remove hidden class
   }
 }
 
-function findWeatherDetails() {
+function getCurrentWeather() {
   if (searchInput.value === "") {
     //enter an error for blank input
+    alert("Please enter a valid city first.");
   } else {
-    //find the city's temperature
+    //Find the city's current weather information
     let searchLink = "https://api.weatherbit.io/v2.0/current?city=" + searchInput.value + "&units=I&key=" + weatherAppKey;
-   httpRequestAsync(searchLink, theResponse);
+    httpRequestAsync(searchLink, apiResponse);
+    hideResults.classList.remove("hidden");
+    hideResults.classList.add("row");
+
   }
  }
- //get user's location and plug it into the api
+ //Get user's location and plug it into the api.
  function getLocation() {
   if(navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function(pos) {
-  //You have your locaton here
+  //Set user's coordinates
   lon = pos.coords.longitude;
   lat = pos.coords.latitude;
     console.log("Latitude: " + lat + " Longitude: " + lon);
     let locationLink = "https://api.weatherbit.io/v2.0/current?&lat=" + lat + "&lon=" + lon + "&units=I&key=" + weatherAppKey;
-    httpRequestAsync(locationLink, theResponse);
+    httpRequestAsync(locationLink, apiResponse);
+    hideResults.classList.remove("hidden");
+    hideResults.classList.add("row");
+
   });
   } else {
     //error messages
-    console.log("Geolocation is not supported by this browser.");
+    console.log("Uh-oh! Geolocation is not supported by this browser.");
+    alert("Please share your location.");
   }
 }
- //get elements from json to display
-function theResponse(response) {
+let str = "°F";
+ //Get weather data from the Weatherbit api to display
+function apiResponse(response) {
   let jsonObject = JSON.parse(response);
   cityName.innerHTML = jsonObject.data[0].city_name + ",";
   stateName.innerHTML = jsonObject.data[0].state_code;
   country.innerHTML = jsonObject.data[0].country_code;
-  // dateTime.innerHTML = jsonObject.data[0].datetime;
   icon.src = "icons/" + jsonObject.data[0].weather.icon + ".png";
-
-  temperature.innerHTML = parseInt(jsonObject.data[0].temp) + "°";
-
-  // let celcius = parseInt(jsonObject.data[0].temp - 32) * ( 5 / 9);
-  // console.log(Math.floor(celcius));
-  dewPoint.innerHTML = `<i class='fas fa-tint'></i> ` + " Dew Point: " + parseInt(jsonObject.data[0].dewpt) + "°";
-  //feels-like temp
-  feelsTemp.innerHTML = `<i class='fas fa-temperature-high'></i> ` + " Heat Index: " + parseInt(jsonObject.data[0].app_temp) + "°";
-  //relative humidity
+  temperature.innerHTML = parseInt(jsonObject.data[0].temp) + str.sup();
+  dewPoint.innerHTML = `<i class='fas fa-tint'></i> ` + " Dew Point: " + parseInt(jsonObject.data[0].dewpt) + str;
+  feelsTemp.innerHTML = `<i class='fas fa-temperature-high'></i> ` + " Heat Index: " + parseInt(jsonObject.data[0].app_temp) + str;
   humidity.innerHTML = `<i class='fas fa-mug-hot'></i> ` + " Humidity: " + jsonObject.data[0].rh + "%";
-  //description
   summary.innerHTML = jsonObject.data[0].weather.description;
   windDirection.innerHTML = `<i class="far fa-compass"></i> ` + jsonObject.data[0].wind_cdir;
   windSpeed.innerHTML = `<i class='fas fa-wind'></i> ` + " Wind: " + parseInt(jsonObject.data[0].wind_spd * 2.237) + " mph | ";
   visibility.innerHTML = `<i class='far fa-eye'></i> ` + " Visibility: " + parseInt(jsonObject.data[0].vis / 1.609) + " mi";
+
+  console.log(jsonObject);
+
   //Save city data to local storage
   localStorage.setItem('searchInput', cityName.innerHTML);
   localStorage.setItem('stateName', stateName.innerHTML);
@@ -200,8 +206,6 @@ function theResponse(response) {
   localStorage.setItem('windDirection', windDirection.innerHTML);
   localStorage.setItem('windSpeed', windSpeed.innerHTML);
   localStorage.setItem('icon', icon.src);
-
-  console.log(jsonObject);
 }
 
 function httpRequestAsync(url, callback)
