@@ -191,8 +191,6 @@ function apiResponse(response) {
   windSpeed.innerHTML = `<i class='fas fa-wind'></i> ` + " Wind: " + parseInt(jsonObject.data[0].wind_spd * 2.237) + " mph | ";
   visibility.innerHTML = `<i class='far fa-eye'></i> ` + " Visibility: " + parseInt(jsonObject.data[0].vis / 1.609) + " mi";
 
-  console.log(jsonObject);
-
   //Save city data to local storage
   localStorage.setItem('searchInput', cityName.innerHTML);
   localStorage.setItem('stateName', stateName.innerHTML);
